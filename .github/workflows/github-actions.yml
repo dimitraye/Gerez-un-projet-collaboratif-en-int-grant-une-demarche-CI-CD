@@ -2,12 +2,12 @@ name: bob aap test
 
 on:
   pull_request:
-    branches:
-      - main
-
+  push:
 jobs:
-  test:
-    runs-on: windows-latest
-    defaults:
-      run:
-        working-directory: ./back/
+  build-test:
+    name: Build & Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2     # checkout the repo
+      - run: npm ci                   # install packages
+      - run: npm test                 # run tests (configured to use jest-junit reporter)
